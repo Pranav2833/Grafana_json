@@ -1,0 +1,133 @@
+{
+    "id": 28,
+    "uid": "de7a8ccc-4f33-4daf-8f69-082b06e931d6",
+    "orgID": 1,
+    "folderUID": "e1b719c6-6422-4980-8d27-2c60513352cf",
+    "ruleGroup": "DevOps",
+    "title": "MR Cluster Status Alert-2",
+    "condition": "C",
+    "data": [
+        {
+            "refId": "A",
+            "queryType": "",
+            "relativeTimeRange": {
+                "from": 900,
+                "to": 0
+            },
+            "datasourceUid": "6fH0h_-4k",
+            "model": {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "6fH0h_-4k"
+                },
+                "editorMode": "builder",
+                "expr": "AWS_emr_status{exported_job=\"myapp\"}",
+                "interval": "",
+                "intervalMs": 15000,
+                "legendFormat": "__auto",
+                "maxDataPoints": 43200,
+                "range": true,
+                "refId": "A"
+            }
+        },
+        {
+            "refId": "B",
+            "queryType": "",
+            "relativeTimeRange": {
+                "from": 600,
+                "to": 0
+            },
+            "datasourceUid": "__expr__",
+            "model": {
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                0,
+                                0
+                            ],
+                            "type": "gt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": []
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "avg"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "datasource": {
+                    "name": "Expression",
+                    "type": "__expr__",
+                    "uid": "__expr__"
+                },
+                "expression": "A",
+                "intervalMs": 1000,
+                "maxDataPoints": 43200,
+                "reducer": "mean",
+                "refId": "B",
+                "type": "reduce"
+            }
+        },
+        {
+            "refId": "C",
+            "queryType": "",
+            "relativeTimeRange": {
+                "from": 600,
+                "to": 0
+            },
+            "datasourceUid": "__expr__",
+            "model": {
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                30
+                            ],
+                            "type": "gt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "B"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "last"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "datasource": {
+                    "type": "__expr__",
+                    "uid": "__expr__"
+                },
+                "expression": "B",
+                "hide": false,
+                "intervalMs": 1000,
+                "maxDataPoints": 43200,
+                "refId": "C",
+                "type": "threshold"
+            }
+        }
+    ],
+    "updated": "2023-07-17T11:31:53Z",
+    "noDataState": "NoData",
+    "execErrState": "Error",
+    "for": "1m",
+    "annotations": {
+        "runbook_url": "http://172.18.59.194:3000/?orgId=1"
+    },
+    "labels": {
+        "Department": "DevOps"
+    },
+    "isPaused": false
+}
